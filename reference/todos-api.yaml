@@ -80,6 +80,17 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Todos'
+    delete:
+      summary: Delete Todo
+      operationId: delete-todos-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todos'
+      description: This deletes a Todo>
 components:
   schemas:
     Todos:
