@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: To-dos
+  version: 1.0.0
+  description: To do API provides a simple way for people to manage their tasks.
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /todos:
+    get:
+      summary: List Todos
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todos'
+        '401':
+          $ref: '#/components/responses/401'
+      operationId: get-todos
+      description: This returns a list of todos.
+      parameters:
+        - $ref: '#/components/parameters/limit'
+      tags:
+        - Todos
+    post:
+      summary: Create Todo
+      operationId: post-todos
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todos'
+        '401':
+          $ref: '#/components/responses/401'
+      description: This creates a Todo object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todos'
+      parameters:
+        - $ref: '#/components/parameters/contentType'
+      tags:
+        - Todos
+  '/todos/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get Todo
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todos'
+      operationId: get-todos-id
+      description: This returns a Todo object.
+    put:
+      summary: Update Todo
+      operationId: put-todos-id
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todos'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todos'
+components:
+  schemas:
+    Todos:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        id:
+          type: number
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+        completed:
+          type: boolean
+        completed_at:
+          type: string
+          minLength: 1
+          format: date-time
+          readOnly: true
+        created_at:
+          type: string
+          minLength: 1
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          minLength: 1
+          format: date-time
+          readOnly: true
+      required:
+        - id
+        - name
+        - completed
+        - completed_at
+        - created_at
+        - updated_at
+      title: Todos
+  securitySchemes:
+    API Key:
+      name: apiKey
+      type: apiKey
+      in: header
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Returns a list of todos
+    contentType:
+      name: Content-Type
+      in: header
+      required: false
+      schema:
+        type: string
+      description: application/json
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            properties:
+              id:
+                type: string
+security:
+  - API Key: []
