@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: To do API provides a simple way for people to manage their tasks.
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://todos.stoplight.io'
 paths:
   /todos:
     get:
